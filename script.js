@@ -75,11 +75,12 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
-const user = "Steven Thomas Williams"; // stw would be the username
-const username = user
-  .toLowerCase()
-  .split(" ")
-  .map(function (name) {
-    return name[0];
-  })
-  .join(""); //?
+const createUsernames = function (user) {
+  const username = user
+    .toLowerCase()
+    .split(" ")
+    .map((name) => name[0])
+    .join("");
+};
+
+console.log(createUsernames("Steven Thomas Williams"));
