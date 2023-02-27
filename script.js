@@ -65,7 +65,7 @@ const displayMovements = function (movements) {
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">$${mov}</div>
+      <div class="movements__value">€${mov}</div>
     </div>
     `;
 
@@ -74,3 +74,12 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+const user = "Steven Thomas Williams"; // stw would be the username
+const username = user
+  .toLowerCase()
+  .split(" ")
+  .map(function (name) {
+    return name[0];
+  })
+  .join(""); //?
