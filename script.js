@@ -94,3 +94,8 @@ const deposits = movements.filter(function (mov) {
 const withdrawals = movements.filter(function (mov) {
   return mov < 0;
 });
+
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  console.log(`Iteration ${i + 1}: ${acc}`);
+  return acc + cur;
+}, 0);
