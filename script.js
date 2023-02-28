@@ -57,7 +57,7 @@ const inputLoanAmounts = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-const displayMovements = function (movements) {
+const displayMovements = (movements) => {
   containerMovements.innerHTML = "";
   movements.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
@@ -75,8 +75,8 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
-const createUsernames = function (accs) {
-  accs.forEach(function (acc) {
+const createUsernames = (accs) => {
+  accs.forEach((acc) => {
     acc.username = acc.owner
       .toLowerCase()
       .split(" ")
@@ -87,15 +87,10 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-const deposits = movements.filter(function (mov) {
-  return mov > 0;
-});
+const deposits = movements.filter((mov) => mov > 0);
 
-const withdrawals = movements.filter(function (mov) {
-  return mov < 0;
-});
+const withdrawals = movements.filter((mov) => mov < 0);
 
-const balance = movements.reduce(function (acc, cur, i, arr) {
-  console.log(`Iteration ${i + 1}: ${acc}`);
+const balance = movements.reduce((acc, cur) => {
   return acc + cur;
 }, 0);
