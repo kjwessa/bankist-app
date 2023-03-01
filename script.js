@@ -86,7 +86,7 @@ const calcDisplayBalance = (movements) => {
 
 calcDisplayBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
+const calcDisplaySummary = (movements) => {
   const incomes = movements
     .filter((mov) => {
       return mov > 0;
@@ -116,6 +116,9 @@ const calcDisplaySummary = function (movements) {
     .map((deposit) => {
       return (deposit * 1.2) / 100;
     })
+    .filter((int) => {
+      return int >= 1;
+    })
     .reduce((acc, mov) => {
       return acc + mov;
     }, 0);
@@ -124,8 +127,6 @@ const calcDisplaySummary = function (movements) {
   labelSumOut.textContent = `${Math.abs(withdrawals)} €`;
   labelSumInterest.textContent = `${interest} €`;
 };
-
-console.log(calcDisplaySummary(account1.movements));
 
 const createUsernames = (accs) => {
   accs.forEach((acc) => {
@@ -142,10 +143,3 @@ createUsernames(accounts);
 //
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-const deposits = movements.filter((mov) => mov > 0);
-
-const withdrawals = movements.filter((mov) => mov < 0);
-
-const balance = movements.reduce((acc, cur) => {
-  return acc + cur;
-}, 0);
