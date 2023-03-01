@@ -98,7 +98,19 @@ const calcDisplaySummary = function (movements) {
       return acc + mov;
     }, 0);
 
+  const withdrawals = movements
+    .filter((mov) => {
+      return mov < 0;
+    })
+    .map((mov) => {
+      return mov + eurToUSD;
+    })
+    .reduce((acc, mov) => {
+      return acc + mov;
+    }, 0);
+
   labelSumIn.textContent = `${incomes} €`;
+  labelSumOut.textContent = `${Math.abs(withdrawals)} €`;
 };
 
 console.log(calcDisplaySummary(account1.movements));
