@@ -140,6 +140,15 @@ createUsernames(accounts);
 
 let currentAccount;
 
+const updateUI = function () {
+  // display movements
+  displayMovements(currentAccount.movements);
+  // display balance
+  calcDisplayBalance(currentAccount);
+  // display summary
+  calcDisplaySummary(currentAccount);
+};
+
 btnLogin.addEventListener("click", function (evt) {
   evt.preventDefault();
   currentAccount = accounts.find((acc) => acc.username === inputLoginUsername.value);
@@ -152,12 +161,7 @@ btnLogin.addEventListener("click", function (evt) {
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
 
-    // display movements
-    displayMovements(currentAccount.movements);
-    // display balance
-    calcDisplayBalance(currentAccount);
-    // display summary
-    calcDisplaySummary(currentAccount);
+    updateUI(currentAccount);
   }
 });
 
