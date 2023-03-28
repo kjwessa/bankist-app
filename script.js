@@ -140,6 +140,17 @@ const createUsernames = (accs) => {
 
 createUsernames(accounts);
 
-//
+// Event Handlers
 
+let currentAccount;
+
+btnLogin.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  currentAccount = accounts.find((acc) => acc.username === inputLoginUsername.value);
+  if (currentAccount.pin === Number(inputLoginPin.value)) {
+    console.log("LOGIN");
+  }
+});
+
+//TODO remove the movements when all tests are completed
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
