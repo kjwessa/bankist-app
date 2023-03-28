@@ -172,9 +172,8 @@ btnTransfer.addEventListener("click", function (evt) {
     currentAccount.balance >= amount &&
     receiverAcc?.username !== currentAccount.username
   ) {
-    console.log("Transfer valid");
+    // doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
   }
 });
-
-//TODO remove the movements when all tests are completed
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
