@@ -75,14 +75,12 @@ const displayMovements = (movements) => {
 
 const eurToUSD = 1.1;
 
-const calcDisplayBalance = (movements) => {
-  const balance = movements.reduce((acc, mov) => {
+const calcDisplayBalance = (accounts) => {
+  accounts.balance = accounts.movements.reduce((acc, mov) => {
     return acc + mov;
   }, 0);
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${accounts.balance}€`;
 };
-
-calcDisplayBalance(account1.movements);
 
 const calcDisplaySummary = (accounts) => {
   const incomes = accounts.movements
@@ -157,9 +155,23 @@ btnLogin.addEventListener("click", function (evt) {
     // display movements
     displayMovements(currentAccount.movements);
     // display balance
-    calcDisplayBalance(currentAccount.movements);
+    calcDisplayBalance(currentAccount);
     // display summary
     calcDisplaySummary(currentAccount);
+  }
+});
+
+btnTransfer.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find((acc) => acc.username === inputTransferTo.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    console.log("Transfer valid");
   }
 });
 
