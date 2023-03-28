@@ -168,6 +168,7 @@ btnTransfer.addEventListener("click", function (evt) {
 
   if (
     amount > 0 &&
+    receiverAcc &&
     currentAccount.balance >= amount &&
     receiverAcc?.username !== currentAccount.username
   ) {
