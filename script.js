@@ -75,8 +75,6 @@ const displayMovements = (movements) => {
 
 const eurToUSD = 1.1;
 
-displayMovements(account1.movements);
-
 const calcDisplayBalance = (movements) => {
   const balance = movements.reduce((acc, mov) => {
     return acc + mov;
@@ -147,7 +145,13 @@ let currentAccount;
 btnLogin.addEventListener("click", function (evt) {
   evt.preventDefault();
   currentAccount = accounts.find((acc) => acc.username === inputLoginUsername.value);
-  if (currentAccount.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // display UI and a welcome message
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(" ")[0]}`;
+    containerApp.style.opacity = 100;
+    // display movements
+    // display balance
+    // display summary
     console.log("LOGIN");
   }
 });
