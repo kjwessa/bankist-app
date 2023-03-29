@@ -214,3 +214,8 @@ btnClose.addEventListener("click", function (evt) {
 
   inputCloseUsername.value = inputClosePin.value = "";
 });
+
+const overallBalance = accounts
+  .map((acc) => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
