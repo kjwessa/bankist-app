@@ -194,7 +194,11 @@ btnClose.addEventListener("click", function (evt) {
     inputCloseUsername.value === currentAccount.username &&
     Number(inputClosePin.value) === currentAccount.pin
   ) {
+    // delete account
     const index = accounts.findIndex((acc) => acc.username === currentAccount.username);
     accounts.splice(index, 1);
+
+    // hide UI
+    containerApp.style.opacity = 0;
   }
 });
