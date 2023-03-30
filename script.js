@@ -62,7 +62,7 @@ const displayMovements = (movements, sort = false) => {
   const transactions = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
   containerMovements.innerHTML = "";
-  movements.forEach((mov, i) => {
+  transactions.forEach((mov, i) => {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     const html = `
@@ -216,6 +216,16 @@ btnClose.addEventListener("click", function (evt) {
   }
 
   inputCloseUsername.value = inputClosePin.value = "";
+});
+
+let sorted = false;
+
+btnSort.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  // change the UI
+  displayMovements(currentAccount.movements, !sorted);
+  // change the sorted variable
+  sorted = !sorted;
 });
 
 // Flat
