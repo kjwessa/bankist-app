@@ -236,3 +236,28 @@ const overallBalance = accounts
 
 // FlatMap
 const overallBalance2 = accounts.flatMap((acc) => acc.movements).reduce((acc, mov) => acc + mov, 0);
+
+const arr = [1, 2, 3, 4, 5, 6, 7]; //?
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+const x = new Array(7); //?
+console.log(x);
+
+x.fill(1, 3, 4); //?
+x.fill(1); //?
+
+arr.fill(23, 2, 6); //?
+
+// Array.from
+
+const y = Array.from({ length: 7 }, () => 1); //?
+
+const z = Array.from({ length: 7 }, (cur, i) => i + 1); //?
+
+labelBalance.addEventListener("click", function () {
+  const movementsUI = Array.from(document.querySelectorAll(".movements__value"), (el) =>
+    Number(el.textContent.replace("€", ""))
+  );
+
+  console.log(movementsUI);
+});
