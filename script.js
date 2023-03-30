@@ -57,7 +57,10 @@ const inputLoanAmounts = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-const displayMovements = (movements) => {
+const displayMovements = (movements, sort = false) => {
+  // allow the users to sort their transactions
+  const transactions = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
   containerMovements.innerHTML = "";
   movements.forEach((mov, i) => {
     const type = mov > 0 ? "deposit" : "withdrawal";
