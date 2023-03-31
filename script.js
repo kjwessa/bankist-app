@@ -228,6 +228,8 @@ btnSort.addEventListener("click", function (evt) {
   sorted = !sorted;
 });
 
+//! Array Methods Practice
+
 // Flat
 const overallBalance = accounts
   .map((acc) => acc.movements)
@@ -250,10 +252,6 @@ arr.fill(23, 2, 6); //?
 
 // Array.from
 
-const y = Array.from({ length: 7 }, () => 1); //?
-
-const z = Array.from({ length: 7 }, (cur, i) => i + 1); //?
-
 labelBalance.addEventListener("click", function () {
   const movementsUI = Array.from(document.querySelectorAll(".movements__value"), (el) =>
     Number(el.textContent.replace("€", ""))
@@ -261,3 +259,24 @@ labelBalance.addEventListener("click", function () {
 
   console.log(movementsUI);
 });
+
+// Exercise 1 (All Deposits)
+const bankDepositSum = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((mov) => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+
+console.log(bankDepositSum);
+
+// Exercise 2 (Number of Deposits over 1000)
+// const numDeposits1000 = accounts
+//   .flatMap((acc) => acc.movements)
+//   .filter((mov) => mov >= 1000);
+
+// console.log(numDeposits1000);
+
+const numDeposits1000 = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+
+console.log(numDeposits1000);
