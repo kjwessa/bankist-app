@@ -1,6 +1,6 @@
 "use strict";
 
-import accounts from "./constants.js";
+import accounts from "./accounts.js";
 
 // Elements
 const labelWelcome = document.querySelector(".welcome");
