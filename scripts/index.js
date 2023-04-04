@@ -1,5 +1,7 @@
 "use strict";
 
+import accounts from "./constants.js";
+
 // Elements
 const labelWelcome = document.querySelector(".welcome");
 const labelDate = document.querySelector(".date");
