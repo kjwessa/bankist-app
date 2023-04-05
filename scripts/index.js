@@ -123,6 +123,11 @@ const updateUI = function () {
   calcDisplaySummary(currentAccount);
 };
 
+// Fake always logged in
+currentAccount = accounts[0];
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
 btnLogin.addEventListener("click", function (evt) {
   evt.preventDefault();
   currentAccount = accounts.find((acc) => acc.username === inputLoginUsername.value);
@@ -200,3 +205,9 @@ btnSort.addEventListener("click", function (evt) {
   // change the sorted variable
   sorted = !sorted;
 });
+
+// Create a date
+const now = new Date();
+console.log(now); //?
+
+console.log(new Date("March 05 2021 14:00:00"));
