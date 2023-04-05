@@ -39,7 +39,7 @@ const displayMovements = (movements, sort = false) => {
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">${mov} €</div>
+      <div class="movements__value">${mov.toFixed(2)} €</div>
     </div>
     `;
 
@@ -53,7 +53,7 @@ const calcDisplayBalance = (accounts) => {
   accounts.balance = accounts.movements.reduce((acc, mov) => {
     return acc + mov;
   }, 0);
-  labelBalance.textContent = `${accounts.balance}€`;
+  labelBalance.textContent = `${accounts.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = (accounts) => {
@@ -93,9 +93,9 @@ const calcDisplaySummary = (accounts) => {
       return acc + mov;
     }, 0);
 
-  labelSumIn.textContent = `${incomes} €`;
-  labelSumOut.textContent = `${Math.abs(withdrawals)} €`;
-  labelSumInterest.textContent = `${interest} €`;
+  labelSumIn.textContent = `${incomes.toFixed(2)} €`;
+  labelSumOut.textContent = `${Math.abs(withdrawals).toFixed(2)} €`;
+  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
 };
 
 const createUsernames = (accs) => {
@@ -162,7 +162,9 @@ btnTransfer.addEventListener("click", function (evt) {
 });
 
 btnLoan.addEventListener("click", function (evt) {
+  // Prevent the form from submitting
   evt.preventDefault();
+  // Get the amount of the loan and round down to the nearest integer
   const requestedAmount = Math.floor(inputLoanAmounts.value);
   if (requestedAmount > 0 && currentAccount.movements.some((mov) => mov >= requestedAmount * 0.1)) {
     currentAccount.movements.push(requestedAmount);
