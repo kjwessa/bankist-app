@@ -128,6 +128,15 @@ currentAccount = accounts[0];
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
+// Create current date
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, 0);
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+const year = now.getFullYear();
+const hour = now.getHours();
+const minutes = now.getMinutes();
+labelDate.textContent = `${month}/${day}/${year}, ${hour}:${minutes}`;
+
 btnLogin.addEventListener("click", function (evt) {
   evt.preventDefault();
   currentAccount = accounts.find((acc) => acc.username === inputLoginUsername.value);
@@ -205,9 +214,3 @@ btnSort.addEventListener("click", function (evt) {
   // change the sorted variable
   sorted = !sorted;
 });
-
-// Create a date
-const now = new Date();
-console.log(now); //?
-
-console.log(new Date("March 05 2021 14:00:00"));
