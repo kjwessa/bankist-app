@@ -1,27 +1,6 @@
 "use strict";
 
-// import accounts from "./accounts.js";
-
-const account1 = {
-  owner: "Kevin Wessa",
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 1111,
-  movementsDates: [
-    "2022-07-01T13:15:33.035Z",
-    "2022-08-30T09:48:16.867Z",
-    "2022-10-25T06:04:23.907Z",
-    "2023-01-01T14:18:46.235Z",
-    "2023-03-02T16:33:06.386Z",
-    "2023-04-15T14:43:26.374Z",
-    "2023-05-25T18:49:59.371Z",
-    "2023-06-04T12:01:20.894Z",
-  ],
-  currency: "EUR",
-  locale: "pt-PT", // de-DE
-};
-
-const accounts = [account1];
+import accounts from "./accounts.js";
 
 // Elements
 const labelWelcome = document.querySelector(".welcome");
@@ -49,20 +28,36 @@ const inputLoanAmounts = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+//* Functions
+const formatMovementDate = (date) => {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${month}/${day}/${year}`;
+};
+
 const displayMovements = (acc, sort = false) => {
+  // clear the container
+  containerMovements.innerHTML = "";
   // allow the users to sort their transactions
   const movs = sort ? acc.movements.slice().sort((a, b) => a - b) : acc.movements;
-  console.log(movs); //?
 
-  containerMovements.innerHTML = "";
   movs.forEach((mov, i) => {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     const date = new Date(acc.movementsDates[i]);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const displayDate = `${month}/${day}/${year}`;
+    const displayDate = formatMovementDate(date);
+
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
@@ -150,6 +145,11 @@ const updateUI = function () {
   // display summary
   calcDisplaySummary(currentAccount);
 };
+
+// FAKE ALWAYS LOGGED IN
+currentAccount = accounts[0]; //?
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 // Create current date
 
