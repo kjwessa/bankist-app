@@ -28,6 +28,21 @@ const inputLoanAmounts = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+const now = new Date();
+
+const locale = navigator.language;
+
+const options = {
+  hour: "numeric",
+  minute: "numeric",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  weekday: "long",
+};
+
+labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
+
 //* Functions
 const formatMovementDate = (date) => {
   const calcDaysPassed = (date1, date2) =>
