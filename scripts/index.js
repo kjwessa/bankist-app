@@ -29,6 +29,13 @@ const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
 //* Functions
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
+};
+
 const formatMovementDate = (date) => {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
@@ -57,11 +64,7 @@ const displayMovements = (acc, sort = false) => {
 
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date);
-
-    const formattedMov = new Intl.NumberFormat(acc.locale, {
-      style: "currency",
-      currency: acc.currency,
-    }).format(mov);
+    const formattedMov = formatCur(mov, acc.locale, acc.currency);
 
     const html = `
     <div class="movements__row">
@@ -81,7 +84,7 @@ const calcDisplayBalance = (accounts) => {
   accounts.balance = accounts.movements.reduce((acc, mov) => {
     return acc + mov;
   }, 0);
-  labelBalance.textContent = `${accounts.balance.toFixed(2)}€`;
+  labelBalance.textContent = formatCur(accounts.balance, accounts.locale, accounts.currency);
 };
 
 const calcDisplaySummary = (accounts) => {
@@ -121,9 +124,9 @@ const calcDisplaySummary = (accounts) => {
       return acc + mov;
     }, 0);
 
-  labelSumIn.textContent = `${incomes.toFixed(2)} €`;
-  labelSumOut.textContent = `${Math.abs(withdrawals).toFixed(2)} €`;
-  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
+  labelSumIn.textContent = formatCur(incomes, accounts.locale, accounts.currency);
+  labelSumOut.textContent = formatCur(withdrawals, accounts.locale, accounts.currency);
+  labelSumInterest.textContent = formatCur(interest, accounts.locale, accounts.currency);
 };
 
 const createUsernames = (accounts) => {
