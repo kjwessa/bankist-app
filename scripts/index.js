@@ -141,9 +141,34 @@ const createUsernames = (accounts) => {
 
 createUsernames(accounts);
 
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    // in each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+    // when 0 seconds, stop timer and log out user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = "Log in to get started";
+      containerApp.style.opacity = 0;
+    }
+    // reduce by 1 second every time
+    time--;
+  };
+
+  // set time to 5 minutes
+  let time = 600;
+  // initially call the timer
+  tick();
+  // call the timer every second
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
+
 // Event Handlers
 
-let currentAccount;
+let currentAccount, timer;
 
 const updateUI = function () {
   // display movements
@@ -188,6 +213,11 @@ btnLogin.addEventListener("click", function (evt) {
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
 
+    if (timer) clearInterval(timer);
+
+    // Start the timer
+    timer = startLogOutTimer();
+
     // update UI
     updateUI(currentAccount);
   }
@@ -224,12 +254,14 @@ btnLoan.addEventListener("click", function (evt) {
   // Get the amount of the loan and round down to the nearest integer
   const requestedAmount = Math.floor(inputLoanAmounts.value);
   if (requestedAmount > 0 && currentAccount.movements.some((mov) => mov >= requestedAmount * 0.1)) {
-    currentAccount.movements.push(requestedAmount);
+    setTimeout(function () {
+      currentAccount.movements.push(requestedAmount);
 
-    // add loan date
+      // add loan date
 
-    currentAccount.movementsDates.push(new Date().toISOString());
-    updateUI(currentAccount);
+      currentAccount.movementsDates.push(new Date().toISOString());
+      updateUI(currentAccount);
+    }, 2500);
   }
   inputLoanAmounts.value = "";
 });
