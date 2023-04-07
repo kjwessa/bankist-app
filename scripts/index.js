@@ -58,11 +58,16 @@ const displayMovements = (acc, sort = false) => {
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date);
 
+    const formattedMov = new Intl.NumberFormat(acc.locale, {
+      style: "currency",
+      currency: acc.currency,
+    }).format(mov);
+
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
       <div class="movements__date">${displayDate}</div>
-      <div class="movements__value">${mov.toFixed(2)} €</div>
+      <div class="movements__value">${formattedMov}</div>
     </div>
     `;
 
@@ -170,9 +175,8 @@ btnLogin.addEventListener("click", function (evt) {
       hour: "numeric",
       minute: "numeric",
       day: "numeric",
-      month: "long",
+      month: "numeric",
       year: "numeric",
-      weekday: "long",
     };
 
     labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
