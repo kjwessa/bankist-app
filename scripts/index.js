@@ -29,3 +29,5 @@ document.addEventListener("keydown", function (e) {
     closeModal();
   }
 });
+
+// Add cookie consent message
