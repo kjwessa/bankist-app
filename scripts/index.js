@@ -19,8 +19,9 @@ const closeModal = function () {
   overlay.classList.add("hidden");
 };
 
-btnsOpenModal.forEach((btn) => btn.addEventListener("click", openModal));
-
+btnsOpenModal.forEach((btn) => {
+  return btn.addEventListener("click", openModal);
+});
 btnCloseModal.addEventListener("click", closeModal);
 overlay.addEventListener("click", closeModal);
 
@@ -37,7 +38,21 @@ message.classList.add("cookie-message");
 message.innerHTML = `We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>`;
 header.append(message);
 
-// Remove cookie message
+//* Remove cookie message
 document.querySelector(".btn--close-cookie").addEventListener("click", function () {
   message.remove();
+});
+
+//* Add smooth scrolling
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
+btnScrollTo.addEventListener("click", function (evt) {
+  const s1coordinates = section1.getBoundingClientRect();
+  // scroll to section 1
+  window.scrollTo({
+    left: s1coordinates.left + window.pageXOffset,
+    top: s1coordinates.top + window.pageYOffset,
+    behavior: "smooth",
+  });
 });
