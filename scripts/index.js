@@ -49,10 +49,5 @@ const section1 = document.querySelector("#section--1");
 
 btnScrollTo.addEventListener("click", function (evt) {
   const s1coordinates = section1.getBoundingClientRect();
-  // scroll to section 1
-  window.scrollTo({
-    left: s1coordinates.left + window.pageXOffset,
-    top: s1coordinates.top + window.pageYOffset,
-    behavior: "smooth",
-  });
+  window.scrollIntoView({ behavior: "smooth" });
 });
