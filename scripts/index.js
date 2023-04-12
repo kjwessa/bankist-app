@@ -54,7 +54,7 @@ tabsContainer.addEventListener("click", function (evt) {
 });
 
 //* Menu Fade Animation
-nav.addEventListener("mouseover", function (evt) {
+const handleHover = function (evt) {
   // Ensure the mouseover event only fires on the nav__link elements
   if (evt.target.classList.contains("nav__link")) {
     // Get the link that was hovered over
@@ -63,38 +63,21 @@ nav.addEventListener("mouseover", function (evt) {
     const siblings = link.closest(".nav").querySelectorAll(".nav__link");
     // Get the logo
     const logo = link.closest(".nav").querySelector("img");
-    // Fade out all the sibling links
+    // Adjust the opacity of the hovered over link and the logo
     siblings.forEach((el) => {
-      // Don't fade out the link that was hovered over
+      // Don't modify the opacity of the hovered over link
       if (el !== link) {
-        el.style.opacity = 0.5;
+        el.style.opacity = this;
       }
-      // Fade out the logo
-      logo.style.opacity = 0.5;
+      // Adjust the opacity of the logo
+      logo.style.opacity = this;
     });
   }
-});
+};
 
-nav.addEventListener("mouseout", function (evt) {
-  // Ensure the mouseover event only fires on the nav__link elements
-  if (evt.target.classList.contains("nav__link")) {
-    // Get the link that was hovered over
-    const link = evt.target;
-    // Get all the sibling links
-    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
-    // Get the logo
-    const logo = link.closest(".nav").querySelector("img");
-    // Fade out all the sibling links
-    siblings.forEach((el) => {
-      // Bring everything back to full opacity
-      if (el !== link) {
-        el.style.opacity = 1;
-      }
-      // Fade the logo back in
-      logo.style.opacity = 1;
-    });
-  }
-});
+nav.addEventListener("mouseover", handleHover.bind(0.5));
+
+nav.addEventListener("mouseout", handleHover.bind(1));
 
 //* Modal Window
 const openModal = function (evt) {
