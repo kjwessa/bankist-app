@@ -10,7 +10,9 @@ const section1 = document.querySelector("#section--1");
 const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
+const nav = document.querySelector(".nav");
 
+//* Add smooth scrolling to the "Learn More" button
 btnScrollTo.addEventListener("click", function (evt) {
   const s1coordinates = section1.getBoundingClientRect();
   window.scrollIntoView({ behavior: "smooth" });
@@ -49,6 +51,49 @@ tabsContainer.addEventListener("click", function (evt) {
   document
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add("operations__content--active");
+});
+
+//* Menu Fade Animation
+nav.addEventListener("mouseover", function (evt) {
+  // Ensure the mouseover event only fires on the nav__link elements
+  if (evt.target.classList.contains("nav__link")) {
+    // Get the link that was hovered over
+    const link = evt.target;
+    // Get all the sibling links
+    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
+    // Get the logo
+    const logo = link.closest(".nav").querySelector("img");
+    // Fade out all the sibling links
+    siblings.forEach((el) => {
+      // Don't fade out the link that was hovered over
+      if (el !== link) {
+        el.style.opacity = 0.5;
+      }
+      // Fade out the logo
+      logo.style.opacity = 0.5;
+    });
+  }
+});
+
+nav.addEventListener("mouseout", function (evt) {
+  // Ensure the mouseover event only fires on the nav__link elements
+  if (evt.target.classList.contains("nav__link")) {
+    // Get the link that was hovered over
+    const link = evt.target;
+    // Get all the sibling links
+    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
+    // Get the logo
+    const logo = link.closest(".nav").querySelector("img");
+    // Fade out all the sibling links
+    siblings.forEach((el) => {
+      // Bring everything back to full opacity
+      if (el !== link) {
+        el.style.opacity = 1;
+      }
+      // Fade the logo back in
+      logo.style.opacity = 1;
+    });
+  }
 });
 
 //* Modal Window
