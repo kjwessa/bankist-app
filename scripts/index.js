@@ -136,3 +136,29 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 });
 
 headerObserver.observe(header);
+
+//* Reveal Sections when they are in the viewport
+const allSections = document.querySelectorAll(".section");
+const revealSection = function (entries, observer) {
+  // Destruce the array to get the first entry
+  const [entry] = entries;
+  // Exit the function if the entry is not intersecting
+  if (!entry.isIntersecting) return;
+  // Remove the hidden class from the section if it is intersecting
+  entry.target.classList.remove("section--hidden");
+  // Stop observing the section once it is revealed
+  observer.unobserve(entry.target);
+};
+const sectionObserver = new IntersectionObserver(revealSection, {
+  // Set the root to null to observe the viewport
+  root: null,
+  // Set the threshold to 0.15 to trigger when 15% of the section is in the viewport
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  // Observe each section
+  sectionObserver.observe(section);
+  // Set the opacity of each section to 0
+  section.classList.add("section--hidden");
+});
