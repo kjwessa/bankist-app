@@ -11,6 +11,7 @@ const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 const nav = document.querySelector(".nav");
+const initalCoords = section1.getBoundingClientRect();
 
 //* Add smooth scrolling to the "Learn More" button
 btnScrollTo.addEventListener("click", function (evt) {
@@ -53,7 +54,7 @@ tabsContainer.addEventListener("click", function (evt) {
     .classList.add("operations__content--active");
 });
 
-//* Menu Fade Animation
+//* Menu Fade Animation Handler
 const handleHover = function (evt) {
   // Ensure the mouseover event only fires on the nav__link elements
   if (evt.target.classList.contains("nav__link")) {
@@ -74,10 +75,16 @@ const handleHover = function (evt) {
     });
   }
 };
-
+//* Menu Fade Animation Event Listeners
 nav.addEventListener("mouseover", handleHover.bind(0.5));
-
 nav.addEventListener("mouseout", handleHover.bind(1));
+
+//* Sticky Navigation
+window.addEventListener("scroll", function () {
+  console.log(window.scrollY);
+  if (window.scrollY > initalCoords.top) nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
+});
 
 //* Modal Window
 const openModal = function (evt) {
