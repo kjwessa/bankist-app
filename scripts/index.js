@@ -12,6 +12,8 @@ const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 const nav = document.querySelector(".nav");
 const initalCoords = section1.getBoundingClientRect();
+const header = document.querySelector(".header");
+const message = document.createElement("div");
 
 //* Add smooth scrolling to the "Learn More" button
 btnScrollTo.addEventListener("click", function () {
@@ -78,13 +80,6 @@ const handleHover = function (evt) {
 nav.addEventListener("mouseover", handleHover.bind(0.5));
 nav.addEventListener("mouseout", handleHover.bind(1));
 
-//* Sticky Navigation
-window.addEventListener("scroll", function () {
-  console.log(window.scrollY);
-  if (window.scrollY > initalCoords.top) nav.classList.add("sticky");
-  else nav.classList.remove("sticky");
-});
-
 //* Modal Window
 const openModal = function (evt) {
   evt.preventDefault();
@@ -110,8 +105,7 @@ document.addEventListener("keydown", function (e) {
 });
 
 //* Add cookie consent message
-const header = document.querySelector(".header");
-const message = document.createElement("div");
+
 message.classList.add("cookie-message");
 message.innerHTML = `We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>`;
 header.append(message);
@@ -120,3 +114,22 @@ header.append(message);
 document.querySelector(".btn--close-cookie").addEventListener("click", function () {
   message.remove();
 });
+
+//* Sticky Navigation: Intersection Observer API
+const stickyNav = function (entries) {
+  // Destructure the entries array to get the first entry
+  const [entry] = entries;
+  // Add the sticky class if the header is not intersecting the viewport
+  if (!entry.isIntersecting) nav.classList.add("sticky");
+  // Remove the sticky class if the header is intersecting the viewport
+  else nav.classList.remove("sticky");
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  // Set the root to null to observe the viewport
+  root: null,
+  // The threshold of 0 will trigger when the header is completely out of view
+  threshold: 0,
+});
+
+headerObserver.observe(header);
