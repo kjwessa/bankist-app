@@ -14,9 +14,8 @@ const nav = document.querySelector(".nav");
 const initalCoords = section1.getBoundingClientRect();
 
 //* Add smooth scrolling to the "Learn More" button
-btnScrollTo.addEventListener("click", function (evt) {
-  const s1coordinates = section1.getBoundingClientRect();
-  window.scrollIntoView({ behavior: "smooth" });
+btnScrollTo.addEventListener("click", function () {
+  section1.scrollIntoView({ behavior: "smooth" });
 });
 
 //* Add smooth scrolling using event delegation
