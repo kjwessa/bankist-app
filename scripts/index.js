@@ -14,6 +14,7 @@ const nav = document.querySelector(".nav");
 const initalCoords = section1.getBoundingClientRect();
 const header = document.querySelector(".header");
 const message = document.createElement("div");
+const navHeight = nav.getBoundingClientRect().height;
 
 //* Add smooth scrolling to the "Learn More" button
 btnScrollTo.addEventListener("click", function () {
@@ -130,6 +131,8 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
   // The threshold of 0 will trigger when the header is completely out of view
   threshold: 0,
+  // The rootMargin will trigger the callback when the header is 90px out of view
+  rootMargin: `-${navHeight}px`,
 });
 
 headerObserver.observe(header);
