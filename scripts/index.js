@@ -15,6 +15,7 @@ const initalCoords = section1.getBoundingClientRect();
 const header = document.querySelector(".header");
 const message = document.createElement("div");
 const navHeight = nav.getBoundingClientRect().height;
+const imgTargets = document.querySelectorAll("img[data-src]");
 
 //* Add smooth scrolling to the "Learn More" button
 btnScrollTo.addEventListener("click", function () {
@@ -162,3 +163,29 @@ allSections.forEach(function (section) {
   // Set the opacity of each section to 0
   section.classList.add("section--hidden");
 });
+
+//* Lazy Load Images using the Intersection Observer API
+const loadImg = function (entries, observer) {
+  // Destructure the entries array to get the first entry
+  const [entry] = entries;
+  // Exit the function if the entry is not intersecting
+  if (!entry.isIntersecting) return;
+  // Replace the src attribute with the data-src attribute
+  entry.target.src = entry.target.dataset.src;
+  // Remove the lazy-img class once the image is loaded
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+  // Stop observing the image once it is loaded
+  observer.unobserve(entry.target);
+};
+const imgObserver = new IntersectionObserver(loadImg, {
+  // Set the root to null to observe the viewport
+  root: null,
+  // Set the threshold to 0 to trigger when the image is in the viewport
+  threshold: 0,
+  // Set the rootMargin to 200px to trigger when the image is 200px in the viewport
+  rootMargin: "200px",
+});
+
+imgTargets.forEach((img) => imgObserver.observe(img));
