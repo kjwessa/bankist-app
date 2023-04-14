@@ -238,3 +238,12 @@ const prevSlide = function () {
 btnRight.addEventListener("click", nextSlide);
 // Move to the previous slide
 btnLeft.addEventListener("click", prevSlide);
+
+// Keyboard Navigation
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "ArrowLeft") prevSlide();
+});
+
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "ArrowRight") nextSlide();
+});
