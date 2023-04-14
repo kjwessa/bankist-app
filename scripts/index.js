@@ -194,36 +194,47 @@ const imgObserver = new IntersectionObserver(loadImg, {
 imgTargets.forEach((img) => imgObserver.observe(img));
 
 //* Slider Component
-slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * i}%)`));
-
-// Establish the starting position of the slider
+// Establish the initial slide positions
 let curSlide = 0;
 const maxSlide = slides.length;
 
 const goToSlide = function (slide) {
+  // For each slide, set the transform property to the current slide position
   slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * (i - curSlide)}%)`));
 };
 
+// Set the initial slide position
 goToSlide(0);
 
+// Move to the next slide
 const nextSlide = function () {
+  // If the current slide is the last slide, move to the first slide
   if (curSlide === maxSlide - 1) {
+    // Set the current slide to the first slide
     curSlide = 0;
   } else {
+    // Move to the next slide
     curSlide++;
   }
+  // Move to the current slide
   goToSlide(curSlide);
 };
 
+// Move to the previous slide
 const prevSlide = function () {
+  // If the current slide is the first slide, move to the last slide
   if (curSlide === 0) {
+    // Set the current slide to the last slide
     curSlide = maxSlide - 1;
   } else {
+    // Move to the previous slide
     curSlide--;
   }
+  // Move to the current slide
   goToSlide(curSlide);
 };
 
 // Move to the next slide
 btnRight.addEventListener("click", nextSlide);
+// Move to the previous slide
 btnLeft.addEventListener("click", prevSlide);
