@@ -16,6 +16,9 @@ const header = document.querySelector(".header");
 const message = document.createElement("div");
 const navHeight = nav.getBoundingClientRect().height;
 const imgTargets = document.querySelectorAll("img[data-src]");
+const slides = document.querySelectorAll(".slide");
+const btnLeft = document.querySelector(".slider__btn--left");
+const btnRight = document.querySelector(".slider__btn--right");
 
 //* Add smooth scrolling to the "Learn More" button
 btnScrollTo.addEventListener("click", function () {
@@ -161,7 +164,7 @@ allSections.forEach(function (section) {
   // Observe each section
   sectionObserver.observe(section);
   // Set the opacity of each section to 0
-  section.classList.add("section--hidden");
+  // section.classList.add("section--hidden");
 });
 
 //* Lazy Load Images using the Intersection Observer API
@@ -189,3 +192,21 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach((img) => imgObserver.observe(img));
+
+//* Slider Component
+slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * i}%)`));
+
+// Establish the starting position of the slider
+let curSlide = 0;
+const maxSlide = slides.length;
+
+// Move to the next slide
+btnRight.addEventListener("click", function () {
+  // Move to the first slide if the current slide is the last slide
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * (i - curSlide)}%)`));
+});
