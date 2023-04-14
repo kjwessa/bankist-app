@@ -19,6 +19,7 @@ const imgTargets = document.querySelectorAll("img[data-src]");
 const slides = document.querySelectorAll(".slide");
 const btnLeft = document.querySelector(".slider__btn--left");
 const btnRight = document.querySelector(".slider__btn--right");
+const dotContainer = document.querySelector(".dots");
 
 //* Add smooth scrolling to the "Learn More" button
 btnScrollTo.addEventListener("click", function () {
@@ -218,6 +219,8 @@ const nextSlide = function () {
   }
   // Move to the current slide
   goToSlide(curSlide);
+  // Activate the current dot
+  activateDot(curSlide);
 };
 
 // Move to the previous slide
@@ -232,6 +235,8 @@ const prevSlide = function () {
   }
   // Move to the current slide
   goToSlide(curSlide);
+  // Activate the current dot
+  activateDot(curSlide);
 };
 
 // Move to the next slide
@@ -246,4 +251,43 @@ document.addEventListener("keydown", function (evt) {
 
 document.addEventListener("keydown", function (evt) {
   if (evt.key === "ArrowRight") nextSlide();
+});
+
+// Slider Dots Component
+const createDots = function () {
+  // For each slide, create a dot with a throwaway variable
+  slides.forEach((_, i) => {
+    // Create a dot element
+    dotContainer.insertAdjacentHTML(
+      "beforeend",
+      `<button class="dots__dot" data-slide="${i}"></button>`
+    );
+  });
+};
+
+// Set the initial dot position
+createDots();
+
+// Set the active dot
+const activateDot = function (slide) {
+  // Remove the active class from all dots
+  document
+    .querySelectorAll(".dots__dot")
+    .forEach((dot) => dot.classList.remove("dots__dot--active"));
+  // Add the active class to the current dot
+  document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add("dots__dot--active");
+};
+// Set the initial dot position
+activateDot(0);
+
+// Add event listener to the dot container to utilize event delegation
+dotContainer.addEventListener("click", function (evt) {
+  if (evt.target.classList.contains("dots__dot")) {
+    // Get the slide number from the data-slide attribute
+    const { slide } = evt.target.dataset;
+    // Move to the current slide
+    goToSlide(slide);
+    // Activate the current dot
+    activateDot(slide);
+  }
 });
