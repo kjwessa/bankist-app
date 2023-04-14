@@ -204,9 +204,6 @@ const goToSlide = function (slide) {
   slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * (i - curSlide)}%)`));
 };
 
-// Set the initial slide position
-goToSlide(0);
-
 // Move to the next slide
 const nextSlide = function () {
   // If the current slide is the last slide, move to the first slide
@@ -265,9 +262,6 @@ const createDots = function () {
   });
 };
 
-// Set the initial dot position
-createDots();
-
 // Set the active dot
 const activateDot = function (slide) {
   // Remove the active class from all dots
@@ -277,17 +271,29 @@ const activateDot = function (slide) {
   // Add the active class to the current dot
   document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add("dots__dot--active");
 };
-// Set the initial dot position
-activateDot(0);
 
 // Add event listener to the dot container to utilize event delegation
 dotContainer.addEventListener("click", function (evt) {
   if (evt.target.classList.contains("dots__dot")) {
     // Get the slide number from the data-slide attribute
     const { slide } = evt.target.dataset;
+    // Update the current slide
+    curSlide = slide;
     // Move to the current slide
     goToSlide(slide);
     // Activate the current dot
     activateDot(slide);
   }
 });
+
+const sliderInit = function () {
+  // Set the initial slide position
+  goToSlide(0);
+  // Set the initial dot position
+  createDots();
+  // Activate the inital dot
+  activateDot(0);
+};
+
+// Initialize the slider
+sliderInit();
