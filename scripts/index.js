@@ -200,6 +200,10 @@ slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * i}%)`)
 let curSlide = 0;
 const maxSlide = slides.length;
 
+const goToSlide = function (slide) {
+  slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * (i - curSlide)}%)`));
+};
+
 // Move to the next slide
 btnRight.addEventListener("click", function () {
   // Move to the first slide if the current slide is the last slide
@@ -208,5 +212,5 @@ btnRight.addEventListener("click", function () {
   } else {
     curSlide++;
   }
-  slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * (i - curSlide)}%)`));
+  goToSlide(curSlide);
 });
