@@ -204,13 +204,16 @@ const goToSlide = function (slide) {
   slides.forEach((slide, i) => (slide.style.transform = `translateX(${100 * (i - curSlide)}%)`));
 };
 
-// Move to the next slide
-btnRight.addEventListener("click", function () {
-  // Move to the first slide if the current slide is the last slide
+goToSlide(0);
+
+const nextSlide = function () {
   if (curSlide === maxSlide - 1) {
     curSlide = 0;
   } else {
     curSlide++;
   }
   goToSlide(curSlide);
-});
+};
+
+// Move to the next slide
+btnRight.addEventListener("click", nextSlide);
